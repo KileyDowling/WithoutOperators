@@ -10,25 +10,34 @@ Module Square
 
         Dim endResult As Double = 0
 
+        Dim _wrongValue As Boolean = False
+        Dim goodValue As Boolean = False
+
+        Dim wrongCountOne As Integer
+
         WriteLine("Let's square stuff! Equation: operand1 ^ 2 = endResult")
 
-        'request number from user
-        soperand1 = InputBox("Please enter a positive number")
-        operand1 = Val(soperand1)
-        WriteLine("Operand1: " & operand1)
-
-        'check if valid input
-        If (operand1 <= -1) Then
-            soperand1 = InputBox("Number Invalid! Please enter a positive number")
+        wrongCountOne = 0
+        While (Not _wrongValue And Not goodValue)
+            'request number from user
+            soperand1 = InputBox("Please enter a positive number")
             operand1 = Val(soperand1)
-            WriteLine("New Operand1: " & operand1)
-            'second change
-            If (operand1 <= -1) Then
-                WriteLine("ERROR. For operand1, you entered: " & operand1 & ". You did not provide a valid input. Program end.")
-            End If
-        End If
+            WriteLine("Operand1: " & operand1)
 
-        'execute program if number is greater than -1
+            'check if valid input
+            If (operand1 <= -1) Then
+                wrongCountOne += 1
+                WriteLine("Number Invalid!")
+            Else
+                goodValue = True
+            End If
+
+            If (wrongCountOne > 1) Then
+                _wrongValue = True
+                WriteLine("ERROR. Too many wrong values!")
+            End If
+        End While
+
         If (operand1 > -1) Then
             'Square up
             counter = operand1
@@ -38,9 +47,8 @@ Module Square
             End While
             WriteLine(operand1 & " ^ 2 = " & endResult)
         End If
-
+        Console.WriteLine("Good-bye")
         Console.ReadLine()
 
     End Sub
-
 End Module
